@@ -169,6 +169,7 @@ h1,h2,h3,.serif{font-family:'Fraunces',serif;}
 .bubble-circle.c3{background:linear-gradient(150deg,var(--emas-terang),var(--emas) 60%,#B8791F);--bubble-shadow:rgba(224,168,58,.55);--bubble-ring:var(--emas);}
 .bubble-circle.c4{background:linear-gradient(150deg,var(--biru-terang),var(--biru) 60%,#1E3A8A);--bubble-shadow:rgba(37,99,235,.5);--bubble-ring:var(--biru);}
 .bubble-circle.c5{background:linear-gradient(150deg,var(--teal-terang),var(--teal) 60%,#0F766E);--bubble-shadow:rgba(13,148,136,.5);--bubble-ring:var(--teal);}
+.bubble-circle.c6{background:linear-gradient(150deg,var(--oranye-terang),var(--oranye) 60%,#B45309);--bubble-shadow:rgba(217,119,6,.5);--bubble-ring:var(--oranye);}
 .bubble-label{font-size:10.5px;font-weight:700;color:var(--teks);text-align:center;line-height:1.2;}
 .bubble-item.active .bubble-label{color:var(--hijau);}
 
@@ -264,6 +265,7 @@ tr:hover td{background:var(--hijau-muda);}
 .bln-dot{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;}
 .bln-dot.ok{background:#D1FAE5;color:#065F46;}
 .bln-dot.no{background:#FEE2E2;color:#991B1B;}
+.bln-dot.blm-anggota{background:#E5E7EB;color:#6B7280;opacity:.6;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;}
 @media(max-width:560px){.form-grid{grid-template-columns:1fr;}}
 .form-group{display:flex;flex-direction:column;gap:5px;}
@@ -357,6 +359,74 @@ select{padding:7px 10px;font-size:12px;border-radius:8px;border:1px solid var(--
   .lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
   .lightbox-overlay.show{display:flex;}
   .lightbox-overlay img{max-width:100%;max-height:90vh;border-radius:8px;object-fit:contain;}
+
+  /* ===== KALKULATOR PINJAMAN (prefix klp-) ===== */
+  .klp-wrap{--klp-bg:#edf2f1;--klp-surface:#ffffff;--klp-fg:#14211f;--klp-muted:#55655f;--klp-line:#d3dcd9;--klp-accent:#0e5a66;--klp-accent-fg:#ffffff;--klp-accent-soft:#dcebee;--klp-ok:#1b7a45;--klp-ok-bg:#dff1e6;--klp-bad:#b3261e;--klp-bad-bg:#f8e1df;display:flex;flex-direction:column;gap:16px;font-family:inherit;}
+  [data-theme="dark"] .klp-wrap{--klp-bg:#0f1917;--klp-surface:#162321;--klp-fg:#e5eeec;--klp-muted:#93a6a1;--klp-line:#2a3b38;--klp-accent:#5cc3d0;--klp-accent-fg:#06191c;--klp-accent-soft:#163338;--klp-ok:#63d08e;--klp-ok-bg:#163a27;--klp-bad:#ff8f86;--klp-bad-bg:#3f1d1a;}
+  .klp-wrap *{box-sizing:border-box;}
+  .klp-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:16px;align-items:start;}
+  @media (max-width:760px){.klp-grid{grid-template-columns:minmax(0,1fr);}}
+  .klp-panel{background:var(--klp-surface);border:1px solid var(--klp-line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:16px;min-width:0;}
+  .klp-h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--klp-muted);margin:0;font-weight:700;}
+  .klp-field{display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .klp-field>label,.klp-field>.klp-lbl{font-weight:600;font-size:13.5px;color:var(--klp-fg);}
+  .klp-hint{font-size:12px;color:var(--klp-muted);}
+  .klp-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;}
+  .klp-opsi{display:flex;flex-direction:column;gap:12px;padding:12px;border-radius:8px;background:var(--klp-accent-soft);}
+  .klp-input-row{display:flex;align-items:stretch;border:1px solid var(--klp-line);border-radius:8px;background:var(--klp-bg);overflow:hidden;}
+  .klp-input-row:focus-within{border-color:var(--klp-accent);box-shadow:0 0 0 3px var(--klp-accent-soft);}
+  .klp-affix{display:flex;align-items:center;padding-inline:10px;color:var(--klp-muted);font-size:13px;background:var(--klp-accent-soft);}
+  .klp-opsi .klp-affix{background:var(--klp-surface);}
+  .klp-input-row input,.klp-input-row select{flex:1;min-width:0;border:0;background:transparent;color:var(--klp-fg);font-size:16px;font-weight:500;padding:10px;outline:none;font-variant-numeric:tabular-nums;}
+  .klp-input-row select{font-size:14px;font-weight:500;}
+  .klp-input-row.klp-suffix .klp-affix{border-left:1px solid var(--klp-line);}
+  .klp-seg{position:relative;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--klp-line);border-radius:8px;overflow:hidden;background:var(--klp-bg);}
+  .klp-seg input{position:absolute;opacity:0;pointer-events:none;}
+  .klp-seg label{text-align:center;padding:9px 8px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--klp-muted);}
+  .klp-seg input:checked+label{background:var(--klp-accent);color:var(--klp-accent-fg);}
+  .klp-rules{border-top:1px solid var(--klp-line);padding-top:12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--klp-muted);}
+  .klp-rules strong{color:var(--klp-fg);font-weight:600;}
+  .klp-verdict{display:flex;flex-direction:column;gap:4px;}
+  .klp-pill{align-self:flex-start;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.02em;}
+  .klp-pill.ok{background:var(--klp-ok-bg);color:var(--klp-ok);}
+  .klp-pill.bad{background:var(--klp-bad-bg);color:var(--klp-bad);}
+  .klp-pill.idle{background:var(--klp-accent-soft);color:var(--klp-accent);}
+  .klp-big-label{font-size:12.5px;color:var(--klp-muted);margin-top:6px;}
+  .klp-big{font-weight:700;font-size:clamp(26px,7vw,38px);line-height:1.1;color:var(--klp-accent);font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+  .klp-big small{font-size:.4em;color:var(--klp-muted);font-weight:500;}
+  .klp-turun-info{font-size:13px;color:var(--klp-muted);}
+  .klp-turun-info b{color:var(--klp-fg);font-weight:600;font-variant-numeric:tabular-nums;}
+  .klp-meter{display:flex;flex-direction:column;gap:6px;}
+  .klp-meter-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--klp-fg);}
+  .klp-meter-head span:last-child{font-variant-numeric:tabular-nums;}
+  .klp-track{position:relative;height:10px;border-radius:6px;background:var(--klp-accent-soft);}
+  .klp-fill{position:absolute;inset:0 auto 0 0;border-radius:6px;background:var(--klp-ok);width:0;transition:width .25s ease;}
+  .klp-fill.bad{background:var(--klp-bad);}
+  .klp-limit{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--klp-fg);left:50%;}
+  .klp-scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--klp-muted);}
+  .klp-rows{margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0;}
+  .klp-rows dt,.klp-rows dd{margin:0;padding:8px 0;border-top:1px solid var(--klp-line);}
+  .klp-rows dt{color:var(--klp-muted);font-size:13px;padding-right:12px;}
+  .klp-rows dd{font-size:13px;text-align:right;font-variant-numeric:tabular-nums;font-weight:500;color:var(--klp-fg);}
+  .klp-rows dt.strong,.klp-rows dd.strong{color:var(--klp-fg);font-weight:700;}
+  #klp-advice:not(:empty){border-radius:8px;padding:12px 14px;font-size:13.5px;background:var(--klp-bad-bg);color:var(--klp-fg);border:1px solid var(--klp-bad);display:flex;flex-direction:column;gap:6px;}
+  #klp-advice b{font-weight:700;}
+  #klp-advice .num{font-variant-numeric:tabular-nums;font-weight:600;}
+  .klp-table-scroll{overflow-x:auto;border:1px solid var(--klp-line);border-radius:8px;}
+  .klp-table-scroll.klp-tall{max-height:420px;overflow-y:auto;}
+  .klp-table{border-collapse:collapse;width:100%;min-width:440px;font-size:13.5px;}
+  .klp-table th,.klp-table td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--klp-line);white-space:nowrap;color:var(--klp-fg);}
+  .klp-table th:first-child,.klp-table td:first-child{text-align:left;}
+  .klp-table th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--klp-muted);font-weight:700;background:var(--klp-bg);position:sticky;top:0;}
+  .klp-table tr:last-child td{border-bottom:0;}
+  .klp-table tr.klp-current td{background:var(--klp-accent-soft);}
+  .klp-table tr.klp-over td.klp-cic{color:var(--klp-bad);font-weight:600;}
+  .klp-tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;}
+  .klp-tag.ok{background:var(--klp-ok-bg);color:var(--klp-ok);}
+  .klp-tag.bad{background:var(--klp-bad-bg);color:var(--klp-bad);}
+  .klp-use{font-size:12.5px;font-weight:600;color:var(--klp-accent);background:transparent;border:1px solid var(--klp-line);border-radius:6px;padding:4px 10px;cursor:pointer;}
+  .klp-note{font-size:12px;color:var(--klp-muted);max-width:75ch;margin:0;}
+  @media (prefers-reduced-motion:reduce){.klp-fill{transition:none;}}
 </style>
 </head>
 <body>
@@ -410,6 +480,9 @@ select{padding:7px 10px;font-size:12px;border-radius:8px;border:1px solid var(--
   </button>
   <button class="bubble-item" id="bubble-payment" onclick="showTab('payment',this)">
     <div class="bubble-circle c5">💳</div><div class="bubble-label">Payment<br>Method</div>
+  </button>
+  <button class="bubble-item" id="bubble-kalkulator" onclick="showTab('kalkulator',this)">
+    <div class="bubble-circle c6">🧮</div><div class="bubble-label">Kalkulator<br>Pinjaman</div>
   </button>
 </div>
 <div id="carousel-anggota" style="display:none;padding:14px 14px 0;">
@@ -651,6 +724,114 @@ select{padding:7px 10px;font-size:12px;border-radius:8px;border:1px solid var(--
   <div id="payment-list"></div>
 </div>
 
+<!-- KALKULATOR PINJAMAN -->
+<div id="panel-kalkulator" class="panel">
+  <div class="info-banner">🧮 <span>Simulasi cicilan pinjaman koperasi. Isi gaji, besar pinjaman, dan tenor untuk melihat perkiraan cicilan per bulan. Hasil ini simulasi dan bukan persetujuan pinjaman.</span></div>
+
+  <div id="klp-root" class="klp-wrap">
+    <div class="klp-grid">
+      <section class="klp-panel" aria-labelledby="klp-h-input">
+        <h2 id="klp-h-input" class="klp-h2">Data anggota</h2>
+
+        <div class="klp-field">
+          <label for="klp-gaji">Gaji per bulan</label>
+          <div class="klp-input-row"><span class="klp-affix">Rp</span><input id="klp-gaji" inputmode="numeric" autocomplete="off" value="5.000.000"></div>
+        </div>
+
+        <div class="klp-field">
+          <label for="klp-pinjaman">Besar pinjaman</label>
+          <div class="klp-input-row"><span class="klp-affix">Rp</span><input id="klp-pinjaman" inputmode="numeric" autocomplete="off" value="10.000.000"></div>
+        </div>
+
+        <div class="klp-field">
+          <label for="klp-tenor">Lama tenor</label>
+          <div class="klp-input-row klp-suffix"><input id="klp-tenor" inputmode="numeric" autocomplete="off" value="12"><span class="klp-affix">bulan</span></div>
+          <span class="klp-hint">Angka di atas adalah contoh. Ubah sesuai data Anda.</span>
+        </div>
+
+        <div class="klp-field">
+          <span class="klp-lbl" id="klp-lbl-jenis">Jenis jasa</span>
+          <div class="klp-seg" role="radiogroup" aria-labelledby="klp-lbl-jenis">
+            <input type="radio" name="klp-jenis" id="klp-jenis-tetap" value="tetap" checked><label for="klp-jenis-tetap">Tetap 1%</label>
+            <input type="radio" name="klp-jenis" id="klp-jenis-turun" value="turun"><label for="klp-jenis-turun">Menurun</label>
+          </div>
+        </div>
+
+        <div class="klp-opsi" id="klp-opsi-turun" hidden>
+          <div class="klp-two">
+            <div class="klp-field">
+              <label for="klp-rawal">Jasa bulan pertama</label>
+              <div class="klp-input-row klp-suffix"><input id="klp-rawal" inputmode="decimal" autocomplete="off" value="1,2"><span class="klp-affix">%</span></div>
+            </div>
+            <div class="klp-field">
+              <label for="klp-rakhir">Jasa bulan terakhir</label>
+              <div class="klp-input-row klp-suffix"><input id="klp-rakhir" inputmode="decimal" autocomplete="off" value="0,7"><span class="klp-affix">%</span></div>
+            </div>
+          </div>
+          <div class="klp-field">
+            <label for="klp-dasar">Jasa dihitung dari</label>
+            <div class="klp-input-row">
+              <select id="klp-dasar">
+                <option value="awal">Besar pinjaman awal</option>
+                <option value="sisa">Sisa pokok pinjaman</option>
+              </select>
+            </div>
+            <span class="klp-hint">Tarif turun rata setiap bulan dari jasa awal ke jasa akhir.</span>
+          </div>
+        </div>
+
+        <div class="klp-rules">
+          <div id="klp-rule-jasa"></div>
+          <div><strong>Batas cicilan:</strong> maksimal 50% dari gaji.</div>
+        </div>
+      </section>
+
+      <section class="klp-panel" aria-labelledby="klp-h-hasil" aria-live="polite">
+        <h2 id="klp-h-hasil" class="klp-h2">Hasil perhitungan</h2>
+
+        <div class="klp-verdict">
+          <span id="klp-pill" class="klp-pill idle">Menunggu data</span>
+          <span class="klp-big-label" id="klp-big-label">Cicilan per bulan</span>
+          <div class="klp-big" id="klp-cicilan">Rp 0</div>
+          <div class="klp-turun-info" id="klp-turun-info"></div>
+        </div>
+
+        <div class="klp-meter">
+          <div class="klp-meter-head"><span id="klp-rasio-label">Cicilan terhadap gaji</span><span id="klp-rasio">0%</span></div>
+          <div class="klp-track"><div class="klp-fill" id="klp-fill"></div><div class="klp-limit" title="Batas 50% gaji"></div></div>
+          <div class="klp-scale"><span>0%</span><span>batas 50%</span><span>100%</span></div>
+        </div>
+
+        <div id="klp-advice"></div>
+
+        <dl class="klp-rows" id="klp-rincian"></dl>
+      </section>
+    </div>
+
+    <section class="klp-panel" aria-labelledby="klp-h-alt">
+      <h2 id="klp-h-alt" class="klp-h2">Bandingkan pilihan tenor</h2>
+      <div class="klp-table-scroll">
+        <table class="klp-table">
+          <thead><tr><th>Tenor</th><th id="klp-th-cic">Cicilan / bulan</th><th>Total jasa</th><th>Status</th><th></th></tr></thead>
+          <tbody id="klp-tabel"></tbody>
+        </table>
+      </div>
+      <p class="klp-note" id="klp-catatan"></p>
+    </section>
+
+    <section class="klp-panel" id="klp-panel-jadwal" aria-labelledby="klp-h-jadwal" hidden>
+      <h2 id="klp-h-jadwal" class="klp-h2">Jadwal angsuran</h2>
+      <div class="klp-table-scroll klp-tall">
+        <table class="klp-table">
+          <thead><tr><th>Bulan</th><th>Tarif jasa</th><th>Pokok</th><th>Jasa</th><th>Cicilan</th><th>Sisa pinjaman</th></tr></thead>
+          <tbody id="klp-jadwal"></tbody>
+        </table>
+      </div>
+      <p class="klp-note">Baris merah berarti cicilan bulan itu melebihi batas 50% gaji.</p>
+    </section>
+  </div>
+</div>
+
 <!-- ADMIN -->
 <div id="panel-admin" class="panel">
   <div class="info-banner" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
@@ -824,7 +1005,17 @@ function formatPeriode(p){
 function lunasBulan(a,bln){return a.simpanan_wajib.some(s=>formatPeriode(s.periode)===bln);}
 function totalW(a){return a.simpanan_wajib.reduce((s,x)=>s+Number(x.jumlah),0);}
 function statusBadge(a,bln){return lunasBulan(a,bln)?'<span class="badge b-lunas">✔ Lunas</span>':'<span class="badge b-belum">✕ Belum</span>';}
-function dotBulan(a,periodes){return '<div class="bln-grid">'+periodes.map(b=>{const ok=lunasBulan(a,b);const lbl=BLN_LABEL[b.split('-')[1]]||b;return '<div class="bln-dot '+(ok?'ok':'no')+'" title="'+b+'">'+lbl+'</div>';}).join('')+'</div>';}
+function dotBulan(a,periodes){
+  const gabung=(a.tanggal_bergabung||'').slice(0,7); // YYYY-MM
+  return '<div class="bln-grid">'+periodes.map(b=>{
+    const lbl=BLN_LABEL[b.split('-')[1]]||b;
+    if(gabung && b<gabung){
+      return '<div class="bln-dot blm-anggota" title="Belum jadi anggota ('+b+')">'+lbl+'</div>';
+    }
+    const ok=lunasBulan(a,b);
+    return '<div class="bln-dot '+(ok?'ok':'no')+'" title="'+b+'">'+lbl+'</div>';
+  }).join('')+'</div>';
+}
 
 function animateCounter(el,target,duration){
   if(!el) return;
@@ -1021,7 +1212,7 @@ function terapkanModeTab(){
 function showTab(id,el){
   // Proteksi akses: cegah pindah ke tab yang bukan haknya
   if(id==='admin' && sesiMode!=='admin'){ showNotif('🔒 Akses ditolak. Silakan login sebagai admin.'); return; }
-  if((id==='pribadi'||id==='idcard'||id==='poin'||id==='payment') && sesiMode!=='anggota'){ showNotif('🔒 Akses ditolak. Silakan login sebagai anggota.'); return; }
+  if((id==='pribadi'||id==='idcard'||id==='poin'||id==='payment'||id==='kalkulator') && sesiMode!=='anggota'){ showNotif('🔒 Akses ditolak. Silakan login sebagai anggota.'); return; }
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.bubble-item').forEach(t=>t.classList.remove('active'));
@@ -1035,6 +1226,7 @@ function showTab(id,el){
   if(id==='idcard') muatIDCard();
   if(id==='poin') muatDataPribadi();
   if(id==='payment') muatPaymentMethod();
+  if(id==='kalkulator' && window.initKalkulatorPinjaman) window.initKalkulatorPinjaman();
 }
 
 function tampilkanBerandaAnggota(){
@@ -1548,6 +1740,227 @@ async function rejectPengajuan(row){
 pengumumanList=JSON.parse(localStorage.getItem('pengumuman')||'[]');
 
 window.onload=()=>{ /* menunggu login di layar Welcome */ };
+
+// ===== KALKULATOR PINJAMAN (namespace klp, terisolasi dari kode utama) =====
+(function(){
+  var BATAS = 0.5;        // maksimal cicilan dari gaji
+  var TETAP = { rAwal: 0.01, rAkhir: 0.01, dasar: "awal" };
+
+  function jadwal(P, n, cfg, tanpaBaris) {
+    var baris = [], sisa = P, totalJasa = 0, puncak = 0, awal = 0, akhir = 0;
+    var pokokBulan = Math.round(P / n);
+    for (var k = 1; k <= n; k++) {
+      var r = n === 1 ? cfg.rAwal : cfg.rAwal + (cfg.rAkhir - cfg.rAwal) * (k - 1) / (n - 1);
+      var pokok = k === n ? sisa : Math.min(pokokBulan, sisa);
+      var dasar = cfg.dasar === "sisa" ? sisa : P;
+      var jasa = Math.round(dasar * r);
+      var cicilan = pokok + jasa;
+      if (k === 1) awal = cicilan;
+      if (k === n) akhir = cicilan;
+      if (cicilan > puncak) puncak = cicilan;
+      totalJasa += jasa;
+      sisa -= pokok;
+      if (!tanpaBaris) baris.push({ k: k, r: r, pokok: pokok, jasa: jasa, cicilan: cicilan, sisa: sisa });
+    }
+    return { baris: baris, awal: awal, akhir: akhir, puncak: puncak, totalJasa: totalJasa, totalBayar: P + totalJasa };
+  }
+
+  function hitung(gaji, P, n, cfg) {
+    var j = jadwal(P, n, cfg, true);
+    j.batas = gaji * BATAS;
+    j.ok = j.puncak <= j.batas;
+    j.rasio = gaji > 0 ? j.puncak / gaji : 0;
+    return j;
+  }
+
+  function pinjamanMaks(gaji, n, cfg) {
+    var batas = gaji * BATAS, lo = 0, hi = Math.floor(batas * n) + 1;
+    while (lo < hi) {
+      var mid = Math.ceil((lo + hi) / 2);
+      if (jadwal(mid, n, cfg, true).puncak <= batas) lo = mid; else hi = mid - 1;
+    }
+    return lo;
+  }
+
+  function tenorMin(gaji, P, cfg) {
+    var batas = gaji * BATAS;
+    for (var n = 1; n <= 1200; n++) {
+      if (jadwal(P, n, cfg, true).puncak <= batas) return n;
+    }
+    return null;
+  }
+
+  var K = function (id) { return document.getElementById(id); };
+  function rpKlp(n) { return "Rp " + Math.round(n).toLocaleString("id-ID"); }
+  function angkaKlp(s) { return parseInt(String(s).replace(/\D/g, ""), 10) || 0; }
+  function persenKlp(s) {
+    var v = parseFloat(String(s).replace(",", "."));
+    return isFinite(v) && v >= 0 ? v : 0;
+  }
+  function fmtPersenKlp(x) { return (x * 100).toLocaleString("id-ID", { maximumFractionDigits: 2 }) + "%"; }
+  function jenisKlp() { var el=document.querySelector("input[name='klp-jenis']:checked"); return el?el.value:'tetap'; }
+
+  function formatInputKlp(el) {
+    var start = el.selectionStart;
+    var digitsBefore = el.value.slice(0, start).replace(/\D/g, "").length;
+    var n = angkaKlp(el.value);
+    el.value = n ? n.toLocaleString("id-ID") : "";
+    var pos = 0, seen = 0;
+    while (pos < el.value.length && seen < digitsBefore) {
+      if (/\d/.test(el.value[pos])) seen++;
+      pos++;
+    }
+    try { el.setSelectionRange(pos, pos); } catch (e) {}
+  }
+
+  var TENOR_PILIHAN = [6, 12, 18, 24, 36, 48, 60];
+  var TENOR_MAKS = 600;
+
+  function ambilCfgKlp() {
+    if (jenisKlp() === "tetap") return TETAP;
+    return { rAwal: persenKlp(K("klp-rawal").value) / 100, rAkhir: persenKlp(K("klp-rakhir").value) / 100, dasar: K("klp-dasar").value };
+  }
+
+  function renderKlp() {
+    if (!K("klp-root")) return; // panel belum ada di DOM
+    var turun = jenisKlp() === "turun";
+    var cfg = ambilCfgKlp();
+    var gaji = angkaKlp(K("klp-gaji").value);
+    var pinjaman = angkaKlp(K("klp-pinjaman").value);
+    var tenor = angkaKlp(K("klp-tenor").value);
+    var tenorTerlaluPanjang = tenor > TENOR_MAKS;
+    var siap = gaji > 0 && pinjaman > 0 && tenor > 0 && !tenorTerlaluPanjang;
+
+    K("klp-opsi-turun").hidden = !turun;
+    K("klp-panel-jadwal").hidden = !(turun && siap);
+    K("klp-th-cic").textContent = turun ? "Cicilan bulan 1" : "Cicilan / bulan";
+    K("klp-big-label").textContent = turun ? "Cicilan bulan pertama" : "Cicilan per bulan";
+    K("klp-rasio-label").textContent = turun ? "Cicilan tertinggi terhadap gaji" : "Cicilan terhadap gaji";
+
+    var dasarTeks = cfg.dasar === "sisa" ? "sisa pokok pinjaman" : "besar pinjaman awal";
+    K("klp-rule-jasa").innerHTML = turun
+      ? "<strong>Jasa:</strong> turun bertahap dari " + fmtPersenKlp(cfg.rAwal) + " di bulan pertama menjadi " + fmtPersenKlp(cfg.rAkhir) + " di bulan terakhir, dihitung dari " + dasarTeks + "."
+      : "<strong>Jasa:</strong> 1% dari besar pinjaman setiap bulan.";
+
+    K("klp-catatan").textContent = turun
+      ? "Tarif jasa turun rata setiap bulan dari " + fmtPersenKlp(cfg.rAwal) + " ke " + fmtPersenKlp(cfg.rAkhir) + ", dihitung dari " + dasarTeks + ". Pokok dibagi rata dan selisih pembulatan masuk ke bulan terakhir. Batas 50% gaji diperiksa terhadap cicilan tertinggi. Hasil ini simulasi dan bukan persetujuan pinjaman."
+      : "Perhitungan memakai jasa flat: 1% dari pinjaman awal dikenakan setiap bulan, jadi cicilan sama besar selama tenor. Cicilan = pinjaman ÷ tenor + 1% × pinjaman, dibulatkan ke rupiah. Hasil ini simulasi dan bukan persetujuan pinjaman.";
+
+    var pill = K("klp-pill"), fill = K("klp-fill"), adv = K("klp-advice"), rin = K("klp-rincian"), info = K("klp-turun-info");
+
+    if (!siap) {
+      pill.className = "klp-pill idle";
+      pill.textContent = tenorTerlaluPanjang ? "Tenor maksimal " + TENOR_MAKS + " bulan" : "Menunggu data";
+      K("klp-cicilan").innerHTML = "Rp 0";
+      K("klp-rasio").textContent = "0%";
+      fill.style.width = "0%"; fill.className = "klp-fill";
+      adv.innerHTML = ""; rin.innerHTML = ""; info.innerHTML = "";
+    } else {
+      var jd = jadwal(pinjaman, tenor, cfg, false);
+      var h = hitung(gaji, pinjaman, tenor, cfg);
+
+      K("klp-cicilan").innerHTML = rpKlp(h.awal) + " <small>/ bulan</small>";
+      info.innerHTML = turun && tenor > 1
+        ? "Turun bertahap menjadi <b>" + rpKlp(h.akhir) + "</b> di bulan ke-" + tenor + "."
+        : "";
+      K("klp-rasio").textContent = (h.rasio * 100).toFixed(1).replace(".", ",") + "% dari gaji";
+      fill.style.width = Math.min(100, h.rasio * 100) + "%";
+      fill.className = "klp-fill" + (h.ok ? "" : " bad");
+      pill.className = "klp-pill " + (h.ok ? "ok" : "bad");
+      pill.textContent = h.ok ? "Memenuhi syarat" : "Melebihi batas 50% gaji";
+
+      if (h.ok) {
+        adv.innerHTML = "";
+      } else {
+        var tm = tenorMin(gaji, pinjaman, cfg);
+        var pm = pinjamanMaks(gaji, tenor, cfg);
+        var html = "<div><b>Cicilan melebihi batas.</b> Batas cicilan Anda <span class=\"num\">" + rpKlp(h.batas) + "</span> per bulan.</div>";
+        if (tm) html += "<div>Untuk pinjaman " + rpKlp(pinjaman) + ", tenor minimal <span class=\"num\">" + tm + " bulan</span>.</div>";
+        else html += "<div>Jasa per bulan saja sudah melebihi batas. Kurangi besar pinjaman.</div>";
+        if (pm > 0) html += "<div>Untuk tenor " + tenor + " bulan, pinjaman maksimal <span class=\"num\">" + rpKlp(pm) + "</span>.</div>";
+        adv.innerHTML = html;
+      }
+
+      var awalBaris = jd.baris[0], akhirBaris = jd.baris[jd.baris.length - 1];
+      if (turun) {
+        rin.innerHTML =
+          "<dt>Angsuran pokok</dt><dd>" + rpKlp(pinjaman / tenor) + "</dd>" +
+          "<dt>Jasa bulan pertama (" + fmtPersenKlp(awalBaris.r) + ")</dt><dd>" + rpKlp(awalBaris.jasa) + "</dd>" +
+          "<dt class=\"strong\">Cicilan bulan pertama</dt><dd class=\"strong\">" + rpKlp(h.awal) + "</dd>" +
+          "<dt>Jasa bulan terakhir (" + fmtPersenKlp(akhirBaris.r) + ")</dt><dd>" + rpKlp(akhirBaris.jasa) + "</dd>" +
+          "<dt class=\"strong\">Cicilan bulan terakhir</dt><dd class=\"strong\">" + rpKlp(h.akhir) + "</dd>" +
+          "<dt>Batas cicilan (50% gaji)</dt><dd>" + rpKlp(h.batas) + "</dd>" +
+          "<dt>Total jasa selama tenor</dt><dd>" + rpKlp(h.totalJasa) + "</dd>" +
+          "<dt>Total yang dibayar</dt><dd>" + rpKlp(h.totalBayar) + "</dd>";
+
+        var tb = "";
+        jd.baris.forEach(function (b) {
+          tb += "<tr" + (b.cicilan > h.batas ? " class=\"klp-over\"" : "") + ">" +
+            "<td>" + b.k + "</td>" +
+            "<td class=\"klp-num\">" + (b.r * 100).toLocaleString("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%</td>" +
+            "<td class=\"klp-num\">" + rpKlp(b.pokok) + "</td>" +
+            "<td class=\"klp-num\">" + rpKlp(b.jasa) + "</td>" +
+            "<td class=\"klp-num klp-cic\">" + rpKlp(b.cicilan) + "</td>" +
+            "<td class=\"klp-num\">" + rpKlp(b.sisa) + "</td></tr>";
+        });
+        K("klp-jadwal").innerHTML = tb;
+      } else {
+        rin.innerHTML =
+          "<dt>Angsuran pokok</dt><dd>" + rpKlp(pinjaman / tenor) + "</dd>" +
+          "<dt>Jasa 1% per bulan</dt><dd>" + rpKlp(awalBaris.jasa) + "</dd>" +
+          "<dt class=\"strong\">Cicilan per bulan</dt><dd class=\"strong\">" + rpKlp(h.awal) + "</dd>" +
+          "<dt>Batas cicilan (50% gaji)</dt><dd>" + rpKlp(h.batas) + "</dd>" +
+          "<dt>Total jasa selama tenor</dt><dd>" + rpKlp(h.totalJasa) + "</dd>" +
+          "<dt>Total yang dibayar</dt><dd>" + rpKlp(h.totalBayar) + "</dd>";
+      }
+    }
+
+    var rows = "";
+    if (gaji > 0 && pinjaman > 0) {
+      var daftar = TENOR_PILIHAN.slice();
+      if (tenor > 0 && tenor <= TENOR_MAKS && daftar.indexOf(tenor) < 0) { daftar.push(tenor); daftar.sort(function (a, b) { return a - b; }); }
+      daftar.forEach(function (n) {
+        var x = hitung(gaji, pinjaman, n, cfg);
+        rows += "<tr" + (n === tenor ? " class=\"klp-current\"" : "") + ">" +
+          "<td>" + n + " bulan</td>" +
+          "<td class=\"klp-num\">" + rpKlp(x.awal) + "</td>" +
+          "<td class=\"klp-num\">" + rpKlp(x.totalJasa) + "</td>" +
+          "<td><span class=\"klp-tag " + (x.ok ? "ok" : "bad") + "\">" + (x.ok ? "Memenuhi" : "Melebihi") + "</span></td>" +
+          "<td><button type=\"button\" class=\"klp-use\" data-n=\"" + n + "\">Pakai</button></td></tr>";
+      });
+    } else {
+      rows = "<tr><td colspan=\"5\" style=\"text-align:left;color:var(--klp-muted)\">Isi gaji dan besar pinjaman untuk melihat perbandingan tenor.</td></tr>";
+    }
+    K("klp-tabel").innerHTML = rows;
+  }
+
+  function initKlp(){
+    if (!K("klp-root") || K("klp-root").dataset.klpInit) return;
+    K("klp-root").dataset.klpInit = '1';
+    ["klp-gaji", "klp-pinjaman", "klp-tenor"].forEach(function (id) {
+      K(id).addEventListener("input", function () { formatInputKlp(this); renderKlp(); });
+    });
+    ["klp-rawal", "klp-rakhir"].forEach(function (id) {
+      K(id).addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9.,]/g, "");
+        renderKlp();
+      });
+    });
+    K("klp-dasar").addEventListener("change", renderKlp);
+    Array.prototype.forEach.call(document.querySelectorAll("input[name='klp-jenis']"), function (el) {
+      el.addEventListener("change", renderKlp);
+    });
+    K("klp-tabel").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-n]");
+      if (!b) return;
+      K("klp-tenor").value = b.getAttribute("data-n");
+      renderKlp();
+    });
+    renderKlp();
+  }
+
+  window.initKalkulatorPinjaman = initKlp;
+})();
 </script>
 </body>
 </html>
